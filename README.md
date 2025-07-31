@@ -47,14 +47,22 @@ pgsql
 Copy
 Edit
 quizapp/
+
 │── src/
-│   ├── App.jsx        # Main Quiz App with Restart feature
-│   ├── main.jsx       # React entry point
-│   └── index.css      # Styling (optional)
+
+│   ├── App.jsx 
+       # Main Quiz App with Restart feature
+│   ├── main.jsx  
+     # React entry point
+│   └── index.css   
+   # Styling (optional)
 │
 │── package.json
+
 │── vite.config.js
+
 │── README.md
+
 🎮 How to Play
 Start the quiz and select your answers.
 
