@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const questions = [
   {
@@ -30,7 +31,9 @@ const questions = [
 
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState(Array(questions.length).fill(null));
+  const [selectedAnswers, setSelectedAnswers] = useState(
+    Array(questions.length).fill(null)
+  );
   const [showResult, setShowResult] = useState(false);
 
   const handleAnswer = (option) => {
@@ -55,96 +58,106 @@ function App() {
     setShowResult(true);
   };
 
+  const handleRestart = () => {
+    setSelectedAnswers(Array(questions.length).fill(null));
+    setCurrentQuestion(0);
+    setShowResult(false);
+  };
+
   const score = selectedAnswers.reduce(
     (acc, ans, idx) => (ans === questions[idx].answer ? acc + 1 : acc),
     0
   );
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>React Quiz App</h1>
+    <div className="d-flex justify-content-center align-items-center min-vh-100 bg-light">
+      <div className="card shadow p-4 w-75 text-center">
+        <h1 className="mb-4 text-primary">React Quiz App</h1>
 
-      {showResult ? (
-        <div>
-          <h2>Quiz Finished!</h2>
-          <p>
-            Your Score: {score} / {questions.length}
-          </p>
+        {showResult ? (
+          <div>
+            <h2 className="text-success">Quiz Finished!</h2>
+            <p className="fs-5">
+              Your Score: {score} / {questions.length}
+            </p>
 
-          {questions.map((q, idx) => (
-            <div key={idx} style={{ marginTop: "20px" }}>
-              <p>
-                <strong>Q{idx + 1}:</strong> {q.question}
-              </p>
-              <p>
-                Your Answer:{" "}
-                <span
-                  style={{
-                    color:
-                      selectedAnswers[idx] === q.answer ? "green" : "red",
-                  }}
-                >
-                  {selectedAnswers[idx] || "No Answer"}
-                </span>
-              </p>
-              <p style={{ color: "green" }}>Correct Answer: {q.answer}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div>
-          <h2>
-            Question {currentQuestion + 1} of {questions.length}
-          </h2>
-          <p>{questions[currentQuestion].question}</p>
-
-          {questions[currentQuestion].options.map((option, index) => {
-            const selected = selectedAnswers[currentQuestion] === option;
-            const correct = option === questions[currentQuestion].answer;
-
-            return (
-              <button
-                key={index}
-                onClick={() => handleAnswer(option)}
-                style={{
-                  margin: "5px",
-                  padding: "10px 20px",
-                  fontSize: "16px",
-                  backgroundColor: selected
-                    ? correct
-                      ? "green"
-                      : "red"
-                    : "white",
-                  color: selected ? "white" : "black",
-                }}
+            {questions.map((q, idx) => (
+              <div
+                key={idx}
+                className="border rounded p-3 my-3 text-start bg-white"
               >
-                {option}
-              </button>
-            );
-          })}
+                <p>
+                  <strong>Q{idx + 1}:</strong> {q.question}
+                </p>
+                <p>
+                  Your Answer:{" "}
+                  <span
+                    className={
+                      selectedAnswers[idx] === q.answer
+                        ? "text-success fw-bold"
+                        : "text-danger fw-bold"
+                    }
+                  >
+                    {selectedAnswers[idx] || "No Answer"}
+                  </span>
+                </p>
+                <p className="text-success">
+                  Correct Answer: <strong>{q.answer}</strong>
+                </p>
+              </div>
+            ))}
 
-          <div style={{ marginTop: "20px" }}>
-            <button onClick={handlePrev} disabled={currentQuestion === 0}>
-              Previous
+            <button className="btn btn-primary mt-3" onClick={handleRestart}>
+              🔄 Restart Quiz
             </button>
-            <button
-              onClick={handleNext}
-              disabled={currentQuestion === questions.length - 1}
-              style={{ marginLeft: "10px" }}
-            >
-              Next
-            </button>
-            {currentQuestion === questions.length - 1 && (
-              <button
-                onClick={handleSubmit}
-                style={{ marginLeft: "10px", backgroundColor: "blue", color: "white" }}
-              >
-                Submit Quiz
-              </button>
-            )}
           </div>
-        </div>
-      )}
+        ) : (
+          <div>
+            <h2>
+              Question {currentQuestion + 1} of {questions.length}
+            </h2>
+            <p className="mb-3">{questions[currentQuestion].question}</p>
+
+            <div className="d-flex flex-column align-items-center">
+              {questions[currentQuestion].options.map((option, index) => {
+                const selected = selectedAnswers[currentQuestion] === option;
+                const correct = option === questions[currentQuestion].answer;
+
+                return (
+                  <button
+                    key={index}
+                    onClick={() => handleAnswer(option)}
+                    className={`btn my-2 w-50 ${
+                      selected ? (correct ? "btn-success" : "btn-danger") : "btn-outline-primary"
+                    }`}
+                  >
+                    {option}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="mt-3">
+              <button
+                className="btn btn-secondary me-2"
+                onClick={handlePrev}
+                disabled={currentQuestion === 0}
+              >
+                Previous
+              </button>
+              {currentQuestion < questions.length - 1 ? (
+                <button className="btn btn-primary" onClick={handleNext}>
+                  Next
+                </button>
+              ) : (
+                <button className="btn btn-success" onClick={handleSubmit}>
+                  Submit Quiz
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
