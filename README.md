@@ -1,12 +1,75 @@
-# React + Vite
+React Quiz App 🎯
+A simple React-based quiz application with 5 questions.
+Users can select answers, see immediate feedback (green/red), submit the quiz to view their score, and restart the quiz to play again.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 Features
+5 multiple-choice quiz questions
 
-Currently, two official plugins are available:
+Select an answer and get instant feedback (✅ correct / ❌ wrong)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Previous / Next navigation between questions
 
-## Expanding the ESLint configuration
+Submit quiz to see the final score
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Highlights correct and wrong answers after submission
+
+Restart quiz to play again
+
+🛠️ Installation & Setup
+Create a new Vite React project (if not done already):
+
+bash
+Copy
+Edit
+npm create vite@latest quizapp
+Navigate to the project folder:
+
+bash
+Copy
+Edit
+cd quizapp
+Install dependencies:
+
+bash
+Copy
+Edit
+npm install
+Start the development server:
+
+bash
+Copy
+Edit
+npm run dev
+Your app will run at http://localhost:5173.
+
+📂 Project Structure
+pgsql
+Copy
+Edit
+quizapp/
+│── src/
+│   ├── App.jsx        # Main Quiz App with Restart feature
+│   ├── main.jsx       # React entry point
+│   └── index.css      # Styling (optional)
+│
+│── package.json
+│── vite.config.js
+│── README.md
+🎮 How to Play
+Start the quiz and select your answers.
+
+Navigate using Previous / Next buttons.
+
+Click Submit Quiz on the last question.
+
+View your score and which answers were correct or wrong.
+
+Click Restart Quiz to play again.
+
+🔹 Future Enhancements
+Timer for each question
+
+Randomized question order
+
+Track high scores
+
